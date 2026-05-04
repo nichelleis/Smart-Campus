@@ -1,7 +1,7 @@
 # Smart Campus – Sensor & Room Management API
 
 **Module:** 5COSC022W Client-Server Architectures (2025/26)  
-**University of Westminster – School of Computer Science and Engineering**
+**University of Westminster – School of Computer Science**
 
 ---
 
@@ -23,7 +23,7 @@ The Smart Campus API is a RESTful web service built with JAX-RS (Jersey) that mo
 - `@ApplicationPath("/api/v1")` in `JakartaRestConfiguration` sets the versioned base path
 - A HATEOAS discovery endpoint at `GET /api/v1` returns links to all resource collections so clients never need to hard-code URLs
 - The sub-resource locator pattern in `SensorResource` delegates reading management to a dedicated `SensorReadingResource` class
-- All exceptions are caught by `@Provider` mappers and returned as consistent JSON — raw stack traces never reach the client
+- All exceptions are caught by `@Provider` mappers and returned as consistent JSON raw stack traces never reach the client
 - All shared data lives in `InMemoryStore` as `static` `ConcurrentHashMap` fields, making it safe across JAX-RS's per-request resource instantiation and concurrent threads
 - Referential integrity is enforced at write time: a sensor cannot be created with a non-existent `roomId`, and a room cannot be deleted while sensors are assigned to it
 
@@ -226,7 +226,7 @@ curl -X GET http://localhost:8080/smartcampus/api/v1/sensors/SNS-xxxxxxxx/readin
 curl -X DELETE http://localhost:8080/smartcampus/api/v1/rooms/ROOM-xxxxxxxx
 ```
 
-Expected response: `409 Conflict` — room cannot be deleted while sensors are assigned.
+Expected response: `409 Conflict` room cannot be deleted while sensors are assigned.
 
 ---
 
@@ -260,8 +260,8 @@ All endpoints consume and produce `application/json`.
 }
 ```
 
-- `name` is required — returns `400 Bad Request` if missing
-- `id` is optional — auto-generated as `ROOM-{uuid}` if not provided
+- `name` is required returns `400 Bad Request` if missing
+- `id` is optional auto-generated as `ROOM-{uuid}` if not provided
 - DELETE returns `409 Conflict` if sensors are still assigned to the room
 - DELETE returns `404 Not Found` if the room does not exist
 
@@ -286,9 +286,9 @@ All endpoints consume and produce `application/json`.
 }
 ```
 
-- `type` and `roomId` are required — returns `400 Bad Request` if missing
-- `roomId` must reference an existing room — returns `422 Unprocessable Entity` if not found
-- `id` is optional — auto-generated as `SNS-{uuid}` if not provided
+- `type` and `roomId` are required returns `400 Bad Request` if missing
+- `roomId` must reference an existing room returns `422 Unprocessable Entity` if not found
+- `id` is optional auto-generated as `SNS-{uuid}` if not provided
 - `status` defaults to `ACTIVE` if not provided. Valid values: `ACTIVE`, `MAINTENANCE`, `OFFLINE`
 
 ---
